@@ -45,12 +45,31 @@ public class AppBannerVPAdapter extends PagerAdapter {
             container.removeView(child);
         }
         container.addView(child);
+        final int finalPosition = position;
+        child.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null){
+                    listener.onItemClickListener(finalPosition);
+                }
+            }
+        });
         return child;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
 //        container.removeView((View) object);
+    }
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClickListener(int position);
     }
 }
 

@@ -4,11 +4,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.wuyson.common.base.BaseFragment;
-import com.wuyson.voyagehub.GlideApp;
 import com.wuyson.voyagehub.R;
 import com.wuyson.voyagehub.adapter.AppBannerVPAdapter;
 import com.wuyson.voyagehub.widget.BannerView;
@@ -23,7 +21,7 @@ public class HomeFragment extends BaseFragment {
 
     @BindView(R.id.vp_banner)
     BannerViewPager vpBanner;
-    private List<BannerView> imageList;
+    private List<BannerView > imageList;
     private List<String> titles = new ArrayList<>();
     private int[] imgIds;
     private Handler handler;
@@ -59,6 +57,13 @@ public class HomeFragment extends BaseFragment {
             adapter.notifyDataSetChanged();
         }
         vpBanner.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new AppBannerVPAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(int position) {
+                Toast.makeText(mActivity, position+"", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         vpBanner.setOnTouchListener(new View.OnTouchListener() {
             @Override
